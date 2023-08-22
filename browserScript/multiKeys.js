@@ -2,7 +2,7 @@ class multiKeys {
     constructor() {
 
         this.Created = "2023/1/14 17:14";
-        this.last_modified = "2023/08/22 11:44:35";
+        this.last_modified = "2023/08/22 12:33:38";
         this.author = 'leizingyiu';
         console.log(`multiKeys by ${this.author}; created ${this.Created} ; last modified ${this.last_modified}`);
 
@@ -190,7 +190,7 @@ class multiKeys {
 
 }
 
-// const m = new multKeysObj();
+// const m = new multiKeys();
 // m.registerIgnore('control', 'meta');
 // m.register(['alt', 'a'],
 //     () => {
