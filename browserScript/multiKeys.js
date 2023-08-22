@@ -14,7 +14,7 @@ class multiKeys {
     constructor() {
 
         this.Created = "2023/1/14 17:14";
-        this.last_modified = "2023/08/22 13:24:01";
+        this.last_modified = "2023/08/22 18:05:51";
         this.author = 'leizingyiu';
         console.log(`multiKeys by ${this.author}; created ${this.Created} ; last modified ${this.last_modified}`);
 
@@ -23,9 +23,7 @@ class multiKeys {
         this.ignoreList = [];
         this.ignoreDict = [];
 
-        this.console = function () {
-            console.log(...arguments);
-        };
+        this.console = console;
         this.registration = {};
         this.allKeysArr = [];
         this.keys = [];
@@ -43,12 +41,12 @@ class multiKeys {
         };
         this.tokenFn = (arr) => arr.sort(this.tokenSortFunction).join(this.tokenJoining);
         this.evKey = (ev) => {
-            console.log(ev, ev.key);
+            this.console.log(ev, ev.key);
 
             let result = ev.key.length == 1 || ev.key.toLowerCase() == 'dead' ?
                 ev.code.toLowerCase().replace('key', '').replace('digit', '') :
                 ev.key.toLowerCase();
-            that.console(ev.type, ev, result);
+            that.console.log(ev.type, ev, result);
             return result;
         };
 
@@ -58,7 +56,7 @@ class multiKeys {
 
             /*ignore start */
             if (that.ignoreDict.includes(k)) {
-                that.console('ignore ' + k);
+                that.console.log('ignore ' + k);
                 that.ignore = true;
                 that.ignoreList.push(k);
                 that.ignoreList = [...new Set(that.ignoreList)];
@@ -66,7 +64,7 @@ class multiKeys {
             }
 
             if (that.ignore == true) {
-                that.console('ignore true: ', that.ignoreList);
+                that.console.log('ignore true: ', that.ignoreList);
                 return false;
             }
             /*ignore end */
@@ -78,7 +76,7 @@ class multiKeys {
             let hitKeys = that.keys.filter((key) => that.allKeysArr.includes(key)),
                 hitToken = that.tokenFn(hitKeys);
 
-            that.console('keydown', '\n\t',
+            that.console.log('keydown', '\n\t',
                 ev, k, '\n\t',
                 hitKeys, hitToken, '\n\t',
                 that);
@@ -87,12 +85,12 @@ class multiKeys {
                 let [token, setting] = o;
                 if (hitToken == token && (!that.waterKeys.includes(k))) {
                     setting.callback(that.keys, ev);
-                    that.console('down', token, ' run callback ');
+                    that.console.log('down', token, ' run callback ');
                     if (setting.fireBoolean == false) {
                         // that.keys = that.keys.filter(key => key != k);
                         that.waterKeys.push(k);
                         that.waterKeys = [... new Set(that.waterKeys)];
-                        that.console('down, add ', k, ' to ', that.waterKeys, that);
+                        that.console.log('down, add ', k, ' to ', that.waterKeys, that);
                     }
                 }
             });
@@ -110,7 +108,7 @@ class multiKeys {
 
             /*ignore start */
             if (that.ignoreDict.includes(k)) {
-                that.console('ignore release :' + k);
+                that.console.log('ignore release :' + k);
 
                 that.ignoreList = that.ignoreList.filter((_k) => _k != k);
 
@@ -122,7 +120,7 @@ class multiKeys {
             }
 
             if (that.ignore == true) {
-                that.console('ignore true: ', that.ignoreList);
+                that.console.log('ignore true: ', that.ignoreList);
                 return false;
             }
             /*ignore end */
@@ -131,7 +129,7 @@ class multiKeys {
             let hitKeys_after = [...that.keys.filter((key) => that.allKeysArr.includes(key))],
                 hitToken_after = String(that.tokenFn(hitKeys_after));
 
-            that.console('keyup', '\n\t',
+            that.console.log('keyup', '\n\t',
                 ev, k, '\n\t',
                 hitKeys_before, hitToken_before, '\n\t',
                 hitKeys_after, hitToken_after, '\n\t',
@@ -147,7 +145,7 @@ class multiKeys {
                 ) {
 
                     if (typeof setting.releaseCallback === 'function') {
-                        that.console('up', token, 'run release callback');
+                        that.console.log('up', token, 'run release callback');
                         setting.releaseCallback(that.keys, ev);
                     }
 
@@ -160,7 +158,7 @@ class multiKeys {
                     setting.keysArr.includes(k)
                 ) {
                     that.waterKeys = that.waterKeys.filter(key => key != k);
-                    that.console('up, remove ', k, ' from ', that.waterKeys, that);
+                    that.console.log('up, remove ', k, ' from ', that.waterKeys, that);
                 }
 
             });
@@ -170,7 +168,7 @@ class multiKeys {
     registerIgnore() {
         [...arguments].map(k => {
             if (typeof k != 'string') {
-                console.error('register ignore dict error: ', k, ' is not a string');
+                that.console.error('register ignore dict error: ', k, ' is not a string');
                 return false;
             }
             this.ignoreDict.push(k);
