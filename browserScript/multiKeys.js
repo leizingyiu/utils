@@ -1,8 +1,20 @@
+// ==UserScript==
+// @name        multiKeys
+// @namespace   leizingyiu.net
+// @match       *://*.*/*
+// @grant       none
+// @version     2023.08.22
+// @author      leizingyiu
+// @description 为脚本提供快捷键
+// @license     GNU AGPLv3
+// ==/UserScript==
+
+
 class multiKeys {
     constructor() {
 
         this.Created = "2023/1/14 17:14";
-        this.last_modified = "2023/08/22 12:33:38";
+        this.last_modified = "2023/08/22 13:24:01";
         this.author = 'leizingyiu';
         console.log(`multiKeys by ${this.author}; created ${this.Created} ; last modified ${this.last_modified}`);
 
